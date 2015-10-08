@@ -82,7 +82,7 @@ Teraz możemy przystapić do napisania pierwszego programu:
 
 5. Pora na nasz kod, na początku wklejmy do naszego pliku z rozszerzeniem .c poniższy listing:
 
-<script src="http://gist-it.appspot.com/http://github.com/StaszicRobo/kurs-avr/raw/master/intro/1.c"></script>
+<script src="//gist-it.appspot.com/http://github.com/StaszicRobo/kurs-avr/raw/master/intro/1.c"></script>
 
 6. Aby skompilować program należy w menu środowiska wybrać: Tools→Make All.
 
@@ -105,26 +105,20 @@ Potrzebujemy następujących paczek (dla każdej dystrybucji będą one miały p
 - avrdude
 
 Uruchamiać będziemy prosty kod, odpowiadający za miganie diodą.
-    #include <avr/io.h>
-    #include <util/delay.h>
-    int main () {
-        DDRB |= (1 << PB0);
-        while (1) {
-            PORTB |= (1 << PB0);
-            _delay_ms(1000);
-            PORTB &= ~(1 << PB0);
-            _delay_ms(1000);
-        }
-    }       
+
+<script src="//gist-it.appspot.com/http://github.com/StaszicRobo/kurs-avr/raw/master/intro/2.c"></script>
 
 #### Kompilacja
-    # avr-g++ -mmcu=atmega8 dioda.cpp -o out
+
+`# avr-g++ -mmcu=atmega8 dioda.cpp -o out`
 Argument -mmcu ustawia rodzaj mikrokontrolera, dokładną liste można zobaczyć w podręczniku (`# man avr-g++`).
-Zmiana formatu:
-    # avr-objcopy -O ihex out out.hex
+
+*Zmiana formatu:*
+`# avr-objcopy -O ihex out out.hex`
 Zmieniamy format z binarnego na szesnastkowy. Wejściem jest plik `out`, wynik zapisujemy do pliku `out.hex`.
-Programowanie mikrokontrolera:
-    # avrdude -c usbasp -p m8 -U flash:w:out.hex
+
+*Programowanie mikrokontrolera:*
+`# avrdude -c usbasp -p m8 -U flash:w:out.hex`
 Argument -c ustawia rodzaj programatora. Żeby zobaczyć możliwe wartości wystarczy uruchomić `# avrdude -c cosnieprawidlowego`
 Argument -p ustawia rodzaj mikrokontrolera. Żeby zobaczyć możliwe wartości znowu wystarczy uruchomić avrdude z -p ustawionym na coś błędnego (jednak programatro musi być prawidłowy, np. `# avrdude -c usbasp -p cos`).
 Argument -U ustawia operację, którą wykonujemy w formacie `rodzajpamięci:operacja:plik`, wszyskie opcje można zobaczyć w podręczniku avrdude (`# man avrdude`)
