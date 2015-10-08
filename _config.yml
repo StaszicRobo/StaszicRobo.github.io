@@ -13,4 +13,4 @@ github_username: StaszicRobo
 destination: /www/staszicrobo
 
 # Build settings
-#markdown: kramdown
+markdown: kramdown
