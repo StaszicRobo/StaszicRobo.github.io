@@ -82,14 +82,7 @@ Teraz możemy przystapić do napisania pierwszego programu:
 
 5. Pora na nasz kod, na początku wklejmy do naszego pliku z rozszerzeniem .c poniższy listing:
 
-```
-	#include <avr/io.h> //dołączneie biblioteki obsługi mikrokontrolera  
-	int main() //początek funkcji głównej  
-	{  
-	    DDRD = 0xFF; // ustawienie wszystkich nózek portu D jako wyjscia  
-	    PORTD = 0b0000001; // stan wysoki na nóżce PD0  
-	} // koniec funkcji  
-```
+<script src="http://gist-it.appspot.com/http://github.com/StaszicRobo/kurs-avr/raw/master/intro/1.c"></script>
 
 6. Aby skompilować program należy w menu środowiska wybrać: Tools→Make All.
 
