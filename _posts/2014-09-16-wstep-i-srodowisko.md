@@ -54,43 +54,43 @@ Teraz możemy przystapić do napisania pierwszego programu:
 
 ##### Konfiguracja pliku MAKEFILE
 
-1. Plik MAKEFILE, czyli plik reguł, informuje kompilator o cechach szczególnych programu, czyli o rodzaju programowanego procesora, częstotliwości, używanego programatora, plikach składowych programu i wielu innych cechach.
+- Plik MAKEFILE, czyli plik reguł, informuje kompilator o cechach szczególnych programu, czyli o rodzaju programowanego procesora, częstotliwości, używanego programatora, plikach składowych programu i wielu innych cechach.
 
-2. Aby edytować plik MAKEFILE należy uruchomić program MFILE będący składową wcześniej zainstalowanego środowiska. Start→wszystkie programy→WinAVR→MFILE.
+- Aby edytować plik MAKEFILE należy uruchomić program MFILE będący składową wcześniej zainstalowanego środowiska. Start→wszystkie programy→WinAVR→MFILE.
 
-3. Następnie Makefile→main file name i wpisujemy nazwę pliku z rozszerzeniem .c, w którym będzie znajdował się kod naszego programu.
+- Następnie Makefile→main file name i wpisujemy nazwę pliku z rozszerzeniem .c, w którym będzie znajdował się kod naszego programu.
 
-4. Teraz ustawiamy port programowania jako USB Makefile→port→usb.
+- Teraz ustawiamy port programowania jako USB Makefile→port→usb.
 
-5. Należy włączyć możliwość edycji : Makefile→enable editing of makefile
+- Należy włączyć możliwość edycji : Makefile→enable editing of makefile
 
-6. Następnie odnaleźć linijkę `AVRDUDE_PROGRAMMER = …` i wpisać
+- Następnie odnaleźć linijkę `AVRDUDE_PROGRAMMER = …` i wpisać
 
 `AVRDUDE_PROGRAMMER = usbasp`
 
-7. Na koniec zapisujemy plik, powinien się nazywać Mfile w folderze, w którym będziemy przechwywać kod naszego przyszłego programu.
+- Na koniec zapisujemy plik, powinien się nazywać Mfile w folderze, w którym będziemy przechwywać kod naszego przyszłego programu.
 
 ##### Tworzenie programu sterującego w edytorze i kompilacja.
 
-1. Start→wszystkie programy→WinAVR→Programers Notepad
+- Start→wszystkie programy→WinAVR→Programers Notepad
 
-2. Należy utworzyć nowy projekt File→new→project, a następnie nadać mu nazwę i wybrać folder przechowywania ten sam w którym jest zapisany plik Mfile.
+- Należy utworzyć nowy projekt File→new→project, a następnie nadać mu nazwę i wybrać folder przechowywania ten sam w którym jest zapisany plik Mfile.
 
-3. W menu File wybieramy New File i klikamy c/c++.
+- W menu File wybieramy New File i klikamy c/c++.
 
-4. Następnie zapisujemy plik w folderze naszego projektu i klikając prawym przyciskiem myszy na projekt wybieramy Add files... po czym przechodzimy do folderu projektu i wybieramy nasz zapisany plik.
+- Następnie zapisujemy plik w folderze naszego projektu i klikając prawym przyciskiem myszy na projekt wybieramy Add files... po czym przechodzimy do folderu projektu i wybieramy nasz zapisany plik.
 
-5. Pora na nasz kod, na początku wklejmy do naszego pliku z rozszerzeniem .c poniższy listing:
+- Pora na nasz kod, na początku wklejmy do naszego pliku z rozszerzeniem .c poniższy listing:
 
 <script src="//gist-it.appspot.com/http://github.com/StaszicRobo/kurs-avr/raw/master/intro/1.c"></script>
 
-6. Aby skompilować program należy w menu środowiska wybrać: Tools→Make All.
+- Aby skompilować program należy w menu środowiska wybrać: Tools→Make All.
 
-7. Kompilator powinien zwrócić komunikat > Process Exit Code: 0.
+- Kompilator powinien zwrócić komunikat > Process Exit Code: 0.
 
 ![Programmer's Notepad](/static/exit.jpg)
 
-8. Aby wgrać skompilowany program do pamięci flash mikrokontrolera należy podłączyć moduł poprzez złącze programatora (ISP) i w menu środowiska wybrać Tools→Program, na programatorze powinna zapalić się czerwona dioda a program powinien zwrócić komunikat Process Exit Code: 0.
+- Aby wgrać skompilowany program do pamięci flash mikrokontrolera należy podłączyć moduł poprzez złącze programatora (ISP) i w menu środowiska wybrać Tools→Program, na programatorze powinna zapalić się czerwona dioda a program powinien zwrócić komunikat Process Exit Code: 0.
 
 ### Programowanie AVR w systemie Linux
 
@@ -111,16 +111,23 @@ Uruchamiać będziemy prosty kod, odpowiadający za miganie diodą.
 #### Kompilacja
 
 `# avr-g++ -mmcu=atmega8 dioda.cpp -o out`
+
 Argument -mmcu ustawia rodzaj mikrokontrolera, dokładną liste można zobaczyć w podręczniku (`# man avr-g++`).
 
 *Zmiana formatu:*
+
 `# avr-objcopy -O ihex out out.hex`
+
 Zmieniamy format z binarnego na szesnastkowy. Wejściem jest plik `out`, wynik zapisujemy do pliku `out.hex`.
 
 *Programowanie mikrokontrolera:*
+
 `# avrdude -c usbasp -p m8 -U flash:w:out.hex`
-Argument -c ustawia rodzaj programatora. Żeby zobaczyć możliwe wartości wystarczy uruchomić `# avrdude -c cosnieprawidlowego`
+
+Argument -c ustawia rodzaj programatora. Żeby zobaczyć możliwe wartości wystarczy uruchomić `# avrdude -c cosnieprawidlowego`.
+
 Argument -p ustawia rodzaj mikrokontrolera. Żeby zobaczyć możliwe wartości znowu wystarczy uruchomić avrdude z -p ustawionym na coś błędnego (jednak programatro musi być prawidłowy, np. `# avrdude -c usbasp -p cos`).
-Argument -U ustawia operację, którą wykonujemy w formacie `rodzajpamięci:operacja:plik`, wszyskie opcje można zobaczyć w podręczniku avrdude (`# man avrdude`)
+
+Argument -U ustawia operację, którą wykonujemy w formacie `rodzajpamięci:operacja:plik`, wszyskie opcje można zobaczyć w podręczniku avrdude (`# man avrdude`).
 
 Avrdude wymaga uprawnień do korzystania z urządzeń USB. Możemy za każdym razem uruchamiaś avrdude jako root, albo odpowiednio skonfigurować udev (wystarczy skopiować zasady z [tej strony](https://wiki.archlinux.org/index.php/Udev#Accessing_firmware_programmers_and_USB_virtual_comm_devices), a następnie załadować nowe zasady `# udevadm control --reload-rules`, albo `# udevadm trigger`, jeżeli nie załadują się one automatycznie).
